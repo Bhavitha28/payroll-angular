@@ -1,0 +1,522 @@
+<div class="intro-2">
+
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="topnav">
+      <div class="dropdown">
+
+
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn  btn-info" (click)="ViewPayslips()" type="button">
+          View Payslips
+        </button>
+
+    
+
+        <div class="topnav-right ">
+          <div class="btn-group dropleft">
+            <div class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <mat-icon class="settings">settings</mat-icon>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><button class="btn btn-block btn-info" (click)="displayEmployee()"> Profile</button>
+              </li>
+
+              <li><button class="btn btn-block btn-info " (click)="displayResetPassword(username)"> Reset
+                  Password</button></li>
+            </ul>
+
+          </div>
+         
+        </div>
+        <button class="btn  btn-info" (click)="viewHelp()" type="button" style="float: right">
+          Help
+        </button>
+      </div>
+
+
+    </div>
+  </nav>
+
+  <div *ngIf="displayViewpayslip">
+    <div class="container-fluid h-custom">
+      <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+        <div class="col-md-8 ">
+          <div class="container text-center">
+          </div>
+          <div class="row place">
+            <div class="col-sm-8 bg-success border-primary " style="border-radius: 25px;">
+
+              <div class="card">
+
+                <div class="card-body">
+
+<br>
+                  <form (ngSubmit)="SubmitTimefromTimeto()">
+                    <mat-label aria-label="center"><b>SELECT DATE</b></mat-label>
+                    <br><br>
+                    <mat-form-field class="full-width" appearance="outline">
+                      <input type="month" required [(ngModel)]="viewPayslip.timefrom" name="timefrom" matInput
+                        placeholder="Enter Here">
+
+                    </mat-form-field>
+                    &nbsp;
+
+                    <div class="card text-center">
+                      <button mat-raised-button color="primary" type="submit">Submit</button>
+
+                    </div>
+<br>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-http-loader></ng-http-loader>
+
+  <div *ngIf="displayEmployeeprofile">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mb-4 ">
+          <div class="card-body text-center">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;" />
+            <br><br><br><br>
+            <div class="profileinfo">
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="mb-0 text-left"><b>Employee ID</b></p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="text-left mb-0"><b>{{loginService.getEmployeeId()}}</b></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="mb-0 text-left"><b>Employee Name</b></p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="text-left mb-0"><b>{{loginService.getEmployeeName()}}</b></p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="mb-0 text-left"><b>Designation</b></p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="text-left mb-0"><b>Developer</b></p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="mb-0 text-left"><b>Username</b></p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="text-left mb-0"><b>{{loginService.getUser().userName}}</b></p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  <p class="mb-0 text-left"><b>Role</b></p>
+                </div>
+                <div class="col-sm-3">
+                  <p class="text-left mb-0"><b>{{loginService.getUserRole()}}</b></p>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div *ngIf="displayResetForm">
+    <div class="container-fluid h-custom">
+      <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+        <div class="col-md-9">
+          <div class="container text-center">
+          </div>
+          <div class="row place">
+            <div class="col-sm-8 bg-success border-primary " style="border-radius: 25px;">
+
+              <div class="card">
+
+                <div class="card-body">
+                  <br>
+
+                  <h2 class="resettext"><b>RESET PASSWORD</b></h2>
+
+                  <form [formGroup]="form" (ngSubmit)="updateResetformSubmit()">
+
+                    <div class="row">
+                      <div class="form-group col-md-10">
+                        <label for="password">New Password</label>
+                        <input formControlName="password" id="password" type="password" class="form-control"
+                          [(ngModel)]="password">
+
+                        <div *ngIf="f['password'].touched && f['password']['invalid']" class="alert alert-danger">
+                          <div *ngIf="f['password']errors['required']">Password is required.</div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-md-10">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input formControlName="confirm_password" id="confirm_password" type="password"
+                          class="form-control">
+                        <div *ngIf="f['confirm_password'].touched && f['confirm_password']['invalid']"
+                          class="alert alert-danger">
+                          <div *ngIf="f['confirm_password']errors['required']">Password is required.</div>
+                          <div *ngIf="f['confirm_password']errors['confirmedValidator']">Password and Confirm Password
+                            must be match.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="card" style="padding-left:130px;">
+
+                        <div>
+                          <button class="btn btn-success" type="submit" [disabled]="!form.valid">Submit</button>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-8" *ngIf="payslipTable">
+    
+    <div id="htmlData">
+
+      <div class="row" style="padding-left:120px; padding-top:80px">
+        <div class="col-md-10">
+          <div class="card  bg-success mb-3">
+
+            <div class="card-body">
+              <div>
+                <h1 style="color:rgba(90, 3, 3, 0.467);padding-left:300px"><b>SOLUGENIX</b></h1>
+              </div>
+            </div>
+          </div>
+          <div class="card  bg-info mb-3">
+
+            <div class="card-body" style="padding-left:40px">
+              <br><br>
+
+              <br><br>
+              <div class="row">
+                <div class="col-md-6">
+                  <div> <span class="fw-bolder"><b>Employee Code : </b></span>&nbsp; &nbsp;<b
+                      class="ms-3">{{employee.employeeId}}</b> </div>
+                </div>
+                <div class="col-md-6">
+                  <div> <span class="fw-bolder"><b>Employee Name : </b> </span>&nbsp; &nbsp; <b
+                      class="ms-3">{{employee.employeeName}}</b> </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div> <span class="fw-bolder"><b>Mail Id : </b></span>&nbsp; &nbsp; <b
+                      class="ms-3">{{employee.mailId}}</b> </div>
+                </div>
+                <div class="col-md-6">
+                  <div> <span class="fw-bolder"><b>Date Of Joining : </b></span>&nbsp; &nbsp; <b
+                      class="ms-3">{{employee.employeeDoj}}</b> </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div> <span class="fw-bolder"><b>Destination : </b></span> &nbsp; &nbsp;<b
+                      class="ms-3">{{employee.employeeType}}</b>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div> <span class="fw-bolder"><b>Account No : </b></span> &nbsp; &nbsp;<b class="ms-3">*******0701</b>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <br><br>
+          <br><br>
+
+          <table class="mt-4 table table-bordered" *ngFor="let paySlip of paySlipData">
+            <thead class="bg-dark text-white">
+              <tr>
+                <th scope="col">EARNINGS</th>
+                <th scope="col">AMOUNT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Basic</th>
+                <td>{{paySlip.basic}}</td>
+
+              </tr>
+
+              <tr>
+                <th scope="row">HRA</th>
+                <td>{{paySlip.hra}}</td>
+
+              </tr>
+              <tr>
+                <th scope="row">Other Allowance</th>
+                <td>0.00</td>
+
+              </tr>
+
+              <tr class="border-top">
+                <th scope="row">Gross Income</th>
+                <td>{{employee.grossSalary}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+
+
+          <table class="mt-4 table table-bordered" *ngFor="let paySlip of paySlipData">
+            <thead class="bg-dark text-white">
+
+              <tr>
+                <th scope="col">DEDUCTIONS</th>
+                <th scope="col">AMOUNT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th th scope="row">PF</th>
+                <td>{{paySlip.epf}}</td>
+              </tr>
+              <tr>
+                <th th scope="row">HIS</th>
+                <td>{{paySlip.his}}</td>
+              </tr>
+
+              <tr>
+                <th th scope="row">LEAVE DEDUCTION</th>
+                <td>{{paySlip.leaveDeduction}}</td>
+              </tr>
+              <tr>
+                <th th scope="row">Tax</th>
+                <td>{{paySlip.tax}}</td>
+              </tr>
+
+              <tr>
+                <th scope="col">NET INCOME</th>
+                <th scope="col">{{paySlip.netpay}}</th>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      
+      <div class="col-md-4" >
+        <button class="btn btn-success btn-block" (click)="makepdf()">DOWNLOAD</button>
+      </div>
+    </div>
+  </div>
+  
+
+
+<div *ngIf="help">
+  <h1 class="text-center" style="color:rgb(26, 91, 145) ;">We are here to help you !</h1>
+
+   <div class="topnav-right ">
+    <button class="btn  btn-primary" type="button" style="border-radius: 25px;">
+      user manual
+      </button>
+      &nbsp; &nbsp; &nbsp;&nbsp;
+    
+      
+    
+      <button class="btn  btn-primary" (click)="EmployeecontactUs()" type="button" style="border-radius: 25px;">
+        contact us
+        </button>
+      
+        &nbsp; &nbsp; &nbsp;&nbsp;
+       
+
+        <button class="btn  btn-primary" (click)="viewRequestLog()" type="button" style="border-radius: 25px;">
+          View request log
+          </button>
+       
+       
+
+</div>
+
+
+<div *ngIf="contactUs">
+
+  <div class="container-fluid h-custom">
+    <div class="cols d-flex justify-content-center align-items-center h-100">
+      <br><br>
+
+      <div class="col-md-10 ">
+        <div class="container text-center">
+        </div>
+        <div class="row placetwo">
+
+          <div class="col-sm-14  ">
+
+            <div class="card example-1">
+              <h1 class="card-header bg-info  text-center"
+                style="margin:0;color: rgb(26, 91, 145);padding-top:20px;padding-bottom: 20px;">
+                <b>Contact Desk</b>
+              </h1>
+              <div class="card-body bg-success" style="padding-left: 20px;">
+                <br>
+                <br>
+                <p>This form allows you to post a request to admin! If you have issues submitting on this page,please
+                  contact your support team</p>
+
+
+                <form (ngSubmit)="submitContact()">
+
+                  <div class="sm-jumbotron">
+
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label for="title" class="form-label"> Type of Issue</label><br>
+                        <select class="form-select" required [(ngModel)]="contact.issueType" name="issuetype"
+                          style="width:250px;height:30px;">
+                          <option selected>Select</option>
+                          <option>Salary</option>
+                          <option>payslip</option>
+                          <option>others</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <label for="firstname" class="form-label"> Subject</label><br>
+                        <input type="text" required [(ngModel)]="contact.subject" name="subject"
+                          style="width:250px;height:30px;">
+
+                      </div>
+                    </div>
+
+
+
+                    <div class=" row ">
+                      <div class="col-md-5">
+                        <label class="form-label" for="textAreaExample">Description Of Issue</label><br>
+                        <textarea id="textAreaExample1" name="description" rows="4" maxlength="1000" required
+                          [(ngModel)]="contact.description" placeholder="max length 1000 characters"
+                          style="width:350px"></textarea>
+
+                      </div>
+                    </div>
+                    <br><br>
+                  </div>
+                  <div class="card text-center">
+                    <button mat-raised-button color="primary" type="submit">SUBMIT QUERY</button>
+
+                  </div>
+
+                  <br><br>
+
+                </form>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="questionAnswerList">
+
+  <div class="container-fluid h-custom">
+    <div class="cols d-flex justify-content-center align-items-center h-100">
+      <br><br>
+
+      <div class="col-md-10 ">
+        <div class="container text-center">
+        </div>
+        <div class="row placetwo">
+
+          <div class="col-sm-14  ">
+
+            <div class="card example-1">
+              <h1 class="card-header bg-info  text-center"
+                style="margin:0;color: rgb(26, 91, 145);padding-top:20px;padding-bottom: 20px;">
+                <b>RequestLog</b>
+              </h1>
+              <div class="card-body bg-primary" style="padding-left: 20px;">
+              
+
+                <table class="table table-dark" align="center">
+
+
+                  <tbody>
+
+                    <tr *ngFor="let query of questionAnswerList" style="border: 2px;">
+
+                      <td scope="row">
+                        <b>IssueType: &nbsp;</b>{{query.issueType}}<br>
+                       <b>Subject: &nbsp;</b> {{query.subject}}<br>
+                       <b>Description: &nbsp;  </b>{{query.description}}
+                        <br>
+                      <br>
+                        <div *ngIf="!query.supportAnswers">
+                          <h3 style="color:rgb(255, 91, 91);"><b>Not Solved yet ! , Please Wait.</b></h3>
+                        </div>
+                        <div *ngIf="query.supportAnswers" style="color:rgb(179, 249, 179) ;">
+                         <b> Solution: &nbsp;</b>{{query.supportAnswers.answer}}
+                        </div>
+                      </td>
+                        
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</div>
+
+
+

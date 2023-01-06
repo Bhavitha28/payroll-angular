@@ -1,0 +1,1084 @@
+<div class="intro-2">
+
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class="topnav">
+      <div class="dropdown">
+        &nbsp; &nbsp; &nbsp;&nbsp;
+
+        <button class="btn btn-info " (click)="getAllEmployees()" type="button">
+          Employee List
+
+        </button>
+
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-info " (click)="uploadWorkdays()" type="button">
+          Upload WorkDays
+
+        </button>
+
+
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-info " (click)="getAllWorkdays()" type="button">
+          Get Workdays
+        </button>
+
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn  btn-info " (click)="displaycreatepayslips()" type="button">
+          Generate payrolls
+        </button>
+
+
+        <div class="topnav-right ">
+
+          <div class="btn-group dropleft">
+            <div class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <mat-icon class="settings">settings</mat-icon>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><button class="btn btn-block btn-info" (click)="displayAdmin()"> Profile</button>
+              </li>
+
+              <li><button class="btn btn-block btn-info " (click)="displayResetPassword(username)"> Reset
+                  Password</button></li>
+            </ul>
+
+          </div>
+
+        </div>
+        <button class="btn  btn-info" (click)="getAllQueries()" type="button" style="float: right">
+          Assist
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="bgimg">
+
+
+    <!-- admin profile -->
+    <div *ngIf="displayAdminprofile">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card mb-4 ">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;" />
+              <br><br><br><br>
+              <div class="profileinfo">
+                <div class="row">
+                  <div class="col-sm-2">
+                    <p class="mb-0 text-left"><b>Employee ID</b></p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="text-left mb-0"><b>{{loginService.getEmployeeId()}}</b></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <p class="mb-0 text-left"><b>Employee Name</b></p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="text-left mb-0"><b>{{loginService.getEmployeeName()}}</b></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-2">
+                    <p class="mb-0 text-left"><b>Designation</b></p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="text-left mb-0"><b>Payroll Manager</b></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-2">
+                    <p class="mb-0 text-left"><b>Username</b></p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="text-left mb-0"><b>{{loginService.getUser().userName}}</b></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-2">
+                    <p class="mb-0 text-left"><b>Role</b></p>
+                  </div>
+                  <div class="col-sm-3">
+                    <p class="text-left mb-0"><b>{{loginService.getUserRole()}}</b></p>
+                  </div>
+                </div>
+
+
+
+              </div>
+
+
+              <!-- <div class="d-flex justify-content-center mb-2">
+              <button type="button" class="btn btn-primary" (click)="displayResetPassword(username)">Reset
+                password</button>&nbsp; &nbsp;
+              <button class="btn  btn-success" (click)="displayAdminUpdate(username)" type="button">
+                Update
+              </button>
+            </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- add employee -->
+
+    <div *ngIf="displayFormCreation">
+      <div class="container-fluid h-custom">
+        <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+          <div class="col-md-10">
+            <div class="container text-center">
+            </div>
+            <div class="row place">
+              <div class="col-sm-8 bg-success border-primary " style="border-radius: 25px;">
+
+                <div class="card">
+
+                  <div class="card-body">
+                    <br>
+                    <h1 class="text-center" style=" color: #0d475f;
+                    "><b>ADD EMPLOYEE</b></h1>
+                    <br>
+
+                    <form [formGroup]="registerform" (ngSubmit)="formSubmit()">
+
+                      <div class="sm-jumbotron">
+
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="firstname" class="form-label"> Employee Name </label>
+                            <input type="text" class="form-control" id="EMPLOYEENAME" formControlName="EMPLOYEENAME"
+                              [(ngModel)]="employee.employeeName">
+                            <div class="form-text text-danger"
+                              *ngIf="employeeName.errors?.['required'] && (employeeName.touched || employeeName.dirty)">
+                              EmployeeName is Required
+                            </div>
+                            <div class="form-text text-danger"
+                              *ngIf="employeeName.errors?.['minLength'] && (employeeName.touched || employeeName.dirty)">
+                              EmployeeName should be min 2 characters
+                            </div>
+                            <div class="form-text text-danger"
+                              *ngIf="employeeName.errors?.['pattern'] && (employeeName.touched || employeeName.dirty)">
+                              EmployeeName should start with Alphabet
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="employeeId" class="form-label"> Employee Id</label>
+                            <input type="text" class="form-control" id="EMPLOYEEID" formControlName="EMPLOYEEID"
+                              [(ngModel)]="employee.employeeId">
+                            <div class="form-text text-danger"
+                              *ngIf="employeeId.errors?.['required'] && ( employeeId.touched || employeeId.dirty)">
+                              EmployeeId required
+                            </div>
+                            <div class="form-text text-danger"
+                              *ngIf="employeeId.errors?.['pattern'] &&( employeeId.touched || employeeId.dirty)">
+                              EmployeeId should start with 'SG'
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row ">
+                          <div class="col-md-10">
+                            <label for="lastname" class="form-label">Employee Type </label>
+                            <input type="text" class="form-control" id="EMPLOYEETYPE" formControlName="EMPLOYEETYPE"
+                              [(ngModel)]="employee.employeeType">
+                            <div class="form-text text-danger"
+                              *ngIf="EmployeeType.errors?.['required'] && ( EmployeeType.touched || EmployeeType.dirty)">
+                              Employee Type required
+                            </div>
+
+                            <div class="form-text text-danger"
+                              *ngIf="EmployeeType.errors?.['pattern'] && (EmployeeType.touched || EmployeeType.dirty)">
+                              Employee Type should start with Alphabet
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="row ">
+                          <div class="col-md-10">
+                            <label for="lastname" class="form-label">Employee DOJ</label>
+                            <input type="date" class="form-control" id="EMPLOYEETYPE" formControlName="EMPLOYEEDOJ"
+                              [(ngModel)]="employee.employeeDoj">
+                            <div class="form-text text-danger"
+                              *ngIf="EmployeeDoj.errors?.['required'] && ( EmployeeDoj.touched || EmployeeDoj.dirty)">
+                              date required
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="email" class="form-label">Mail Id</label>
+                            <input type="text" class="form-control" id="EMAIL" formControlName="EMAIL"
+                              [(ngModel)]="employee.mailId">
+                            <div class="form-text text-danger"
+                              *ngIf="Email.errors?.['required'] && ( Email.touched || Email.dirty)">
+                              Email required
+                            </div>
+                            <div class="form-text text-danger"
+                              *ngIf="Email.errors?.['pattern'] && ( Email.touched || Email.dirty)">
+                              Must End with (@gmail,@yahooor,@solugenix).com avoid special charcters in id.
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="mobile" class="form-label">Gross Salary</label>
+                            <input type="text" class="form-control" id="grosssalary" formControlName="GROSSSALARY"
+                              [(ngModel)]="employee.grossSalary">
+                            <div class="form-text text-danger"
+                              *ngIf="GrossSalary.errors?.['required'] && ( GrossSalary.touched || GrossSalary.dirty)">
+                              Salary required
+                            </div>
+                            <div class="form-text text-danger"
+                              *ngIf="GrossSalary.errors?.['pattern'] && ( GrossSalary.touched || GrossSalary.dirty)">
+                              Must have only digits
+                            </div>
+
+                          </div>
+                          <br><br>
+                        </div>
+                        <div class="card text-center">
+                          <button mat-raised-button color="primary" type="submit" [disabled]="registerform.invalid">Add
+                            Employee</button>
+
+                        </div>
+
+
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- get all employees list -->
+
+    <div class="sm-jumbotron" style="padding-top:10px;" *ngIf="EmployeeLists">
+
+      <h4 style="  color: green;" *ngIf="deleteResult"> {{deleteResult}}</h4>
+
+      <div>
+
+        <br> <br>
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="text-center" style=" color: #0d475f;
+            "><b>EMPLOYEE DETAILS</b></h1>
+          </div>
+        </div>
+
+
+        <!-- add  and inactive buttons -->
+        <div class="row">
+          <div class="col-sm-2">
+            <p class="mb-0 text-left"></p>
+          </div>
+
+
+          <div class="col-sm-1">
+            <button type="button" class="btn btn-link" (click)="displayForm()"><span class="bi-plus-circle-fill"
+                style="font-size: 40px;"></span></button>
+
+
+          </div>
+
+          <div *ngIf="buttontoggleInActive">
+            <div class="col-sm-2" style="padding-top:25px">
+
+              <button type="button" class="btn btn-primary" (click)="InactiveEmployeeList()">InActive Employees</button>
+
+            </div>
+          </div>
+          <div *ngIf="buttontoggleActive">
+            <div class="col-sm-2" style="padding-top:25px">
+
+              <button type="button" class="btn btn-primary" (click)="getAllEmployees()">Active Employees</button>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="col-sm-2" style="padding-top:25px;  ">
+
+            <input type="text" placeholder=" Search by EmployeeId" [(ngModel)]="EmployeesearchInput.employeeId"
+              style="padding-top:10px; border-radius:10px;width:220px;border: 2px solid #1c59bb">
+            <div *ngIf="(EmployeeLists| filterBy:EmployeesearchInput).length===0">No Match</div>
+
+
+          </div>
+
+
+
+          <div class="col-sm-2 text-center" style="padding-top:27px;">
+
+            <select (change)="onTableSizeChangeEvent($event)"
+              style="padding-top:5px; padding-bottom:5px;border-radius:5px;background-color:#2687c0;color:#e3f2fd;">
+              <option>No Of Records</option>
+              <option *ngFor="let size of tableSizes">
+
+                {{size}}
+
+              </option>
+
+            </select>
+          </div>
+
+        </div>
+
+        <div class="row" style="padding-left:55px">
+          <!-- <div class="col-sm-2">
+            <p class="mb-0 text-left"></p>
+          </div> -->
+
+
+
+
+
+        </div>
+
+
+        <div *ngIf="EmployeeLists">
+
+          <div class="container-fluid h-custom">
+            <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+              <div class="col-md-10">
+                <div class="container text-center">
+                </div>
+                <div class="row placetwo">
+
+                  <div class="col-sm-14 bg-success border-primary">
+
+                    <div class="card example-1 square scrollbar-dusty-grass square thin">
+
+                      <div class="card-body">
+                        <table class="table table-dark" align="center">
+
+                          <thead>
+
+                            <tr>
+
+                              <th scope="col" (click)="sort('employeeId')">Employee Id&nbsp; &nbsp;<i
+                                  class="fa fa-sort"></i></th>
+
+                              <th scope="col" (click)="sort('employeeName')">Employee Name&nbsp; &nbsp;<i
+                                  class="fa fa-sort"></i></th>
+
+
+
+
+
+                              <th scope="col" (click)="sort('employeeDoj')">Employee DOJ&nbsp; &nbsp;<i
+                                  class="fa fa-sort"></i></th>
+
+                              <th scope="col">Employee Type</th>
+
+                              <th scope="col" (click)="sort('grossSalary')">Gross salary &nbsp; &nbsp;<i
+                                  class="fa fa-sort"></i></th>
+
+                              <!-- <th scope="col">Is Active </th> -->
+                              <th scope="col">Mail Id </th>
+
+                              <!-- <th scope="col"> Modified on</th> -->
+                              <th colspan="2" style="text-align:center ;">Actions </th>
+                            </tr>
+
+                          </thead>
+
+                          <tbody>
+
+                            <tr *ngFor="let employee of EmployeeLists | orderBy: orderHeader:isDescOrder |filterBy:EmployeesearchInput
+                            | paginate :{itemsPerPage:tableSize, 
+                              currentPage: page,
+                              totalItems:count }  let i=index">
+
+                              <th scope="row"> {{employee.employeeId}}</th>
+
+                              <td>{{employee.employeeName}}</td>
+
+                              <td>{{employee.employeeDoj}}</td>
+
+                              <td>{{employee.employeeType}}</td>
+
+                              <td>{{employee.grossSalary}}</td>
+
+
+
+                              <td>{{employee.mailId}}</td>
+
+                              <td *ngIf="employee.isActive==true">
+
+                                <button mat-icon-button color="warn" (click)="deleteById(employee.id)">
+
+                                  <mat-icon>delete</mat-icon>
+
+                                </button>
+
+                              </td>
+                              <td *ngIf="employee.isActive==false">
+
+                                <button mat-icon-button color="primary" (click)="activateById(employee.id)">
+
+                                  <mat-icon> person_pin</mat-icon>
+
+                                </button>
+
+
+
+                              </td>
+
+
+                              <td *ngIf="employee.isActive==true">
+
+                                <button mat-icon-button color="primary" (click)="displayupdateForm(employee.id)">
+
+                                  <mat-icon>mode_edit</mat-icon>
+
+                                </button>
+
+
+
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <br><br>
+                  <div>
+                    <pagination-controls previousLabel="prev" nextLabel="next" (pageChange)="onTableDataChange($event)">
+                    </pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- update employee -->
+
+    <div *ngIf="displayFormUpdation">
+      <div class="container-fluid h-custom">
+        <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+          <div class="col-md-10 ">
+            <div class="container text-center">
+            </div>
+            <div class="row place">
+              <div class="col-sm-8 bg-success border-primary " style="border-radius: 25px;">
+
+                <div class="card">
+
+                  <div class="card-body">
+                    <br>
+                    <h1 class="text-center" style=" color: #0d475f;
+                    "><b>UPDATE DETAILS</b></h1>
+
+                    <form [formGroup]="registerform" (ngSubmit)="updateformSubmit()">
+
+                      <div class="sm-jumbotron">
+
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="firstname" class="form-label"> Employee Name </label>
+                            <input class="form-control" class="form-control" id="EMPLOYEENAME"
+                              formControlName="EMPLOYEENAME" [(ngModel)]="updateemployee.employeeName" name="empname">
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="employeeName.errors?.['required'] && (employeeName.touched || employeeName.dirty)">
+                            EmployeeName is Required
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="employeeName.errors?.['minLength'] && (employeeName.touched || employeeName.dirty)">
+                            EmployeeName should be between 2-20 only
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="employeeName.errors?.['pattern'] && (employeeName.touched || employeeName.dirty)">
+                            EmployeeName should start with Alphabet
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="employeeId" class="form-label"> Employee Id [Read-Only]</label>
+                            <input class="form-control" class="form-control" id="EMPLOYEEID"
+                              formControlName="EMPLOYEEID" [(ngModel)]="updateemployee.employeeId" name="empId"
+                              readonly>
+
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="employeeId.errors?.['required'] && ( employeeId.touched || employeeId.dirty)">
+                            EmployeeId required
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="employeeId.errors?.['pattern'] &&( employeeId.touched || employeeId.dirty)">
+                            EmployeeId should start with 'SG'
+                          </div>
+                        </div>
+
+                        <div class="row ">
+                          <div class="col-md-10">
+                            <label for="lastname" class="form-label">Employee Type </label>
+                            <input class="form-control" id="EMPLOYEETYPE" formControlName="EMPLOYEETYPE" required
+                              [(ngModel)]="updateemployee.employeeType" name="Employee type">
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="EmployeeType.errors?.['required'] && ( EmployeeType.touched || EmployeeType.dirty)">
+                            Employee Type required
+                          </div>
+
+                          <div class="form-text text-danger"
+                            *ngIf="EmployeeType.errors?.['pattern'] && (EmployeeType.touched || EmployeeType.dirty)">
+                            Employee Type should start with Alphabet
+                          </div>
+
+                        </div>
+
+                        <div class="row ">
+                          <div class="col-md-10">
+                            <label for="lastname" class="form-label">Employee DOJ [Read-Only]</label>
+                            <input type="date" class="form-control" id="EMPLOYEETYPE" formControlName="EMPLOYEEDOJ"
+                              required [(ngModel)]="updateemployee.employeeDoj" name="employeeDoj" readonly>
+
+                            <div class="form-text text-danger"
+                              *ngIf="EmployeeDoj.errors?.['required'] && ( EmployeeDoj.touched || EmployeeDoj.dirty)">
+                              date required
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="email" class="form-label">Mail Id</label>
+                            <input class="form-control" id="EMAIL" formControlName="EMAIL" required
+                              [(ngModel)]="updateemployee.mailId" name="Employeemailid" type="text">
+                            <div class="form-text text-danger"
+                              *ngIf="Email.errors?.['required'] && ( Email.touched || Email.dirty)">
+                              Email required
+                            </div>
+                            <div class="form-text text-danger"
+                              *ngIf="Email.errors?.['pattern'] && ( Email.touched || Email.dirty)">
+                              Must End with @gmail.com or @yahoo.com or @solugenix.com
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-10">
+                            <label for="mobile" class="form-label">Gross Salary</label>
+                            <input class="form-control" id="grosssalary" formControlName="GROSSSALARY" required
+                              [(ngModel)]="updateemployee.grossSalary" name="Employeesalary" type="text">
+                            <div class="form-text text-danger"
+                              *ngIf="GrossSalary.errors?.['required'] && ( GrossSalary.touched || GrossSalary.dirty)">
+                              Salary required
+                            </div>
+                            <div class="form-text text-danger"
+                              *ngIf="GrossSalary.errors?.['pattern'] && ( GrossSalary.touched || GrossSalary.dirty)">
+                              Must have only digits
+                            </div>
+                          </div>
+                          <br><br>
+                        </div>
+                        <div class="card text-center">
+                          <button mat-raised-button color="primary" type="submit"
+                            [disabled]="registerform.invalid">Update Employee</button>
+
+                        </div>
+                      </div>
+                    </form>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- workdays list-->
+
+
+    <div class="sm-jumbotron" style="padding-top:50px;" *ngIf="workDaysLists">
+
+      <div>
+
+        <br> <br>
+
+        <h1 class="text-center" style=" color: #0d475f;
+                    "><b>EMPLOYEE WORKDAYS</b></h1>
+
+        <div *ngIf="workDaysLists">
+
+          <div class="container-fluid h-custom">
+            <div class="cols d-flex justify-content-center align-items-center h-100">
+              <br><br>
+              <div class="row">
+
+                <div class="col-sm-2">
+                  <p class="mb-0 text-left"></p>
+                </div>
+
+
+                <div class="col-sm-2  text-center" style="padding-top:27px;">
+
+                  <select (change)="onTableSizeChangeEvent($event)"
+                    style="padding-top:5px; padding-bottom:5px;border-radius:5px;background-color:#2687c0;color:#e3f2fd;">
+                    <option>No Of Records</option>
+                    <option *ngFor="let size of tableSizes">
+
+                      {{size}}
+
+                    </option>
+
+                  </select>
+
+                </div>
+                <div class="col-sm-1" style="padding-top:25px; ">
+                  <input type="text" placeholder="    Search by EmpployeeId"
+                    [(ngModel)]="searchInput.employeeId.employeeId"
+                    style="padding-top:10px; border-radius:10px;width:180px;border: 2px solid #1c59bb">
+                  <div *ngIf="(workDaysLists | filterBy:searchInput).length===0">No Match</div>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-10 ">
+                <div class="container text-center">
+                </div>
+                <div class="row placetwo">
+
+                  <div class="col-sm-14 bg-success border-primary ">
+
+                    <div class="card example-1">
+
+                      <div class="card-body">
+                        <table class="table table-dark" align="center">
+
+                          <thead>
+
+                            <tr>
+
+                              <th scope="col">Employee Id</th>
+
+                              <th scope="col">WorkDays</th>
+
+                              <th scope="col">Leave Balance</th>
+
+                              <th scope="col">Leaves Applied</th>
+
+                              <th colspan="2" scope="col" (click)="sort('timeFrom')">Period &nbsp; &nbsp;<i
+                                  class="fa fa-sort"></i></th>
+
+
+
+
+                            </tr>
+
+                          </thead>
+
+                          <tbody>
+
+                            <tr *ngFor="let workdays of workDaysLists | orderBy: orderHeader:isDescOrder |filterBy:searchInput
+                            | paginate :{itemsPerPage:tableSize, 
+                              currentPage: page,
+                              totalItems:count }  let i=index">
+
+                              <th scope="row"> {{workdays.employeeId.employeeId}}</th>
+
+                              <td>{{workdays.totalDays}}</td>
+
+                              <td>{{workdays.leaveBal}}</td>
+
+                              <td>{{workdays.leavesApplied}}</td>
+
+                              <td>{{workdays.timeFrom.slice(0,10)}} - {{workdays.timeTo.slice(0,10)}}</td>
+
+                              <!-- <td>{{workdays.timeTo.slice(0,10)}}</td> -->
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <br>
+                  <br>
+                  <div>
+                    <pagination-controls previousLabel="prev" nextLabel="next" (pageChange)="onTableDataChange($event)">
+                    </pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- create payslips -->
+    <div *ngIf="displaycreatepayslip">
+      <div class="container-fluid h-custom">
+        <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+          <div class="col-md-8 ">
+            <div class="container text-center">
+            </div>
+            <div class="row place">
+              <div class="col-sm-8 bg-success border-primary " style="border-radius: 25px;">
+
+                <div class="card">
+
+                  <div class="card-body">
+                    <br>
+                    <h1 class="text-center" style=" color: #0d475f;">
+                      <b>GENERATE PAYROLLS</b>
+                    </h1>
+                    <form (ngSubmit)="SubmitTimefromTimeto()">
+
+                      <div class="form-group">
+
+                        <div class="row" style="padding-left: 40px;">
+                          <div class="col-md-10">
+                            <label for="firstname" class="form-label"> Time From </label><br>
+                            <input type="date" required [(ngModel)]="createpayslip.timefrom" name="timefrom"
+                              style="border-radius: 25px;padding-left:15px">
+                          </div>
+                        </div>
+                        <div class="row" style="padding-left: 40px;">
+                          <div class="col-md-10">
+                            <label for="firstname" class="form-label"> Time To</label><br>
+                            <input type="date" required [(ngModel)]="createpayslip.timeto" name="timeto"
+                              style="border-radius: 25px; padding-left:15px">
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+
+                        <div class="col-6 offset-5">
+
+                          <div class="card text-center">
+                            <button mat-raised-button color="primary" type="submit">Submit</button>
+
+                          </div>
+
+
+                        </div>
+
+                      </div>
+
+                    </form>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- upload workdays -->
+
+    <div *ngIf="displayuploadworkdays">
+      <div class="container-fluid h-custom">
+        <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+          <div class="col-md-8 ">
+            <div class="container text-center">
+            </div>
+            <div class="row place">
+              <div class="col-sm-8 bg-success border-primary " style="border-radius: 25px;">
+
+                <div class="card">
+
+                  <div class="card-body">
+                    <br>
+                    <h1 class="text-center" style=" color: #0d475f;
+                    "><b>UPLOAD FILE</b></h1>
+
+                    <form [formGroup]="fileform" (ngSubmit)="uploade()">
+                      <fieldset>
+                        <!-- <strong> Choose File </strong> -->
+                        <div class="form-group">
+
+                          <div>
+                            <input type="file" (change)="onUploadFile($event)" name="file" id="file"
+                              class="form-control" formControlName="FILE" accept=".xls,.xlsx">
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="File.errors?.['required'] && ( File.touched || File.dirty)">
+                            file is required
+                          </div>
+                        </div>
+                      </fieldset>
+
+                      <div class="row">
+
+                        <div class="col-6 offset-5">
+
+                          <div class="card text-center">
+                            <button class="btn btn-info" type="submit" [disabled]="fileform.invalid">Upload</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </form>
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- reset password -->
+
+    <div *ngIf="displayResetForm">
+      <div class="container-fluid h-custom">
+        <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+          <div class="col-md-8 ">
+            <div class="container text-center">
+            </div>
+            <div class="row place">
+              <div class="col-sm-8 bg-success border-primary " style="border-radius: 25px;">
+
+                <div class="card">
+
+                  <div class="card-body">
+                    <br>
+
+                    <h2 class="resettext"><b>RESET PASSWORD</b></h2>
+
+                    <form [formGroup]="form" (ngSubmit)="updateResetformSubmit()">
+
+
+                      <div class="row">
+                        <div class="form-group col-md-10">
+                          <label for="password">New Password</label>
+                          <input formControlName="password" id="password" type="password" class="form-control"
+                            [(ngModel)]="password">
+
+
+                          <div class="form-text text-danger"
+                            *ngIf="f['password'].errors?.['required'] && ( f['password'].touched || f['password'].dirty)">
+                            Password Required
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="f['password'].errors?.['pattern'] && ( f['password'].touched || f['password'].dirty)">
+                            Must have 1-Upper, 1-lower,1-special char,1-digit
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="f['password'].errors?.['minLength'] && ( f['password'].touched ||f['password'].dirty)">
+                            Min chars 8 only
+                          </div>
+                          <div class="form-text text-danger"
+                            *ngIf="f['password'].errors?.['maxLength'] && ( f['password'].touched || f['password'].dirty)">
+                            Max chars 16 only
+                          </div>
+
+
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-md-10">
+                          <label for="confirm_password">Confirm Password</label>
+                          <input formControlName="confirm_password" id="confirm_password" type="password"
+                            class="form-control">
+                          <div *ngIf="f['confirm_password'].touched && f['confirm_password']['invalid']"
+                            class="alert alert-danger">
+                            <!-- <div *ngIf="f['confirm_password']errors['required']">Password is required.</div> -->
+                            <div *ngIf="f['confirm_password']errors['confirmedValidator']">Password and Confirm Password
+                              must be match.</div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="card" style="padding-left:120px;">
+
+                          <div>
+                            <button class="btn btn-success" type="submit" [disabled]="!form.valid">Submit</button>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sm-jumbotron" style="padding-top:50px;" *ngIf="errorMsg">
+
+      <div>
+
+        <br> <br>
+
+        <h1 style="color: maroon;text-align: center;">Logs</h1>
+
+        <div *ngIf="errorMsg">
+
+          <div class="container-fluid h-custom">
+            <div class="cols d-flex justify-content-center align-items-center h-100">
+
+
+              <div class="col-md-8 ">
+                <div class="container text-center">
+                </div>
+                <div class="row error">
+                  <div class="col-sm-12 bg-success border-primary scroll" style="border-radius: 25px;">
+
+                    <div class="card">
+
+                      <div class="card-body">
+                        <table class="table table-dark" align="center">
+
+                          <thead>
+
+                            <tr>
+
+                              <th scope="col">Error message</th>
+
+                            </tr>
+
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let error of errorMsg">
+                              <td>{{error}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div *ngIf="queryLists">
+
+      <div class="container-fluid h-custom">
+        <div class="cols d-flex justify-content-center align-items-center h-100">
+          <br><br>
+
+          <div class="col-md-10 ">
+            <div class="container text-center">
+            </div>
+            <div class="row placetwo">
+
+              <div class="col-sm-14  ">
+
+                <div class="card example-1">
+                  <h1 class="card-header bg-info  text-center"
+                    style="margin:0;color: rgb(26, 91, 145);padding-top:20px;padding-bottom: 20px;">
+                    <b>Employee Assistance</b>
+                  </h1>
+                  <div class="card-body bg-success" style="padding-left: 20px;">
+                    <br>
+                    <br>
+
+                    <table class="table table-dark" align="center">
+
+
+                      <tbody>
+
+                        <tr *ngFor="let query of queryLists ; let i=index" style="border: 2px;">
+
+                          <td scope="row" *ngIf="!query.supportAnswers"> EmployeeId: {{query.employeeId}}<br>
+                            IssueType: {{query.issueType}}<br>
+                            Subject: {{query.subject}}<br>
+                            Description:{{query.description}}
+                            <br>
+                          <br>
+                            <div *ngIf="answer && i==answerIndex">
+                              <form (ngSubmit)="answerSubmit(i)">
+                                  <textarea id="textAreaExample" name="answer" rows="4" maxlength="1000" required
+                                  [(ngModel)]="supportAnswers.answer" placeholder="max length 1000 characters"
+                                  style="width:600px"></textarea>
+                                  <br>
+                                  <br>
+                                <button type="submit" class="btn btn-primary" >Submit</button>
+                              </form>
+                            </div></td>
+                            <td  *ngIf="!query.supportAnswers"><button type="button" class="btn btn-primary" (click)="isAnswer(i)">Answer</button>
+                            </td>
+                            <br>
+                            <br>
+                            
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <br>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

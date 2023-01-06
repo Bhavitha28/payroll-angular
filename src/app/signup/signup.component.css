@@ -1,0 +1,19 @@
+.full-width{
+    width: 100%;
+}
+
+.place{
+    padding: 100px;
+}
+.row{
+    padding-bottom:15px;
+
+}
+.form-control{
+   background-color: #fbfbfc;
+   border-radius: 25px;
+}
+.signup{
+    color: #0d475f;
+    padding-left:100px;   
+}

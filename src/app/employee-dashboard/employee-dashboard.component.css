@@ -1,0 +1,75 @@
+.navbar{
+    align-items:center;
+  
+    padding: 14px 16px;
+}
+.full-width{
+    width: 100%;
+}
+.place{
+    padding: 30px;
+    padding-left:200px;
+
+}
+.placetwo{
+    padding: 30px;
+    padding-left:50px;
+}
+.card{
+    align-self: center;
+}
+.scroll{
+    max-height:300px;
+    overflow-y: auto;
+}
+.topnav-right {
+    float: right; 
+   
+  } 
+
+  .profileinfo{
+    padding-left: 670px;
+}
+
+.form-control{
+    background-color: #fbfbfc;
+    border-radius: 25px;
+}
+
+.row{
+    padding-bottom:15px;
+    
+
+}
+.resettext{
+    color: #0d475f;
+    padding-left:60px;
+}
+    .Addtext{
+        color: #0d475f;
+        padding-left:140px;
+    
+    
+}
+.place{
+    padding: 30px;
+    padding-left:580px;
+
+}
+
+.intro-2 {
+    background: url("C:\Users\BhavithaParvathaneni\Downloads\img2.jpg")no-repeat center center;
+
+    background-size: cover;
+  min-height: 100vh;
+  overflow: hidden
+  /* opacity: 0.5; */
+
+  }
+
+  .topnav-right {
+    float: right; 
+    padding-right: 20px;
+  } 
+
+ 

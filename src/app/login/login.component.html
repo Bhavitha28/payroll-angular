@@ -1,0 +1,52 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid"
+          alt="Sample image">
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="container text-center">
+        </div>
+        <div class="row place">
+        <div class="col-sm-12 bg-success border-primary" style="border-radius: 25px;">
+
+        <div class="card">
+         
+          <div class="card-body">
+            <br><br>
+            <h1 class="login"><b>LOGIN</b></h1>
+        <!-- {{loginData | json}} -->
+
+        <form (ngSubmit)="formSubmit()">
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input [(ngModel)]="loginData.userName" name="userName" required matInput placeholder="Enter Here">
+          </mat-form-field>
+
+
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>User Password</mat-label>
+            <input [(ngModel)]="loginData.password" name="password" type="password" required matInput
+              placeholder="Enter Here">
+          </mat-form-field>
+
+          <div class="card text-center">
+            <button mat-raised-button color="primary" type="submit">Login</button>
+            &nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="accent" type="submit">Reset</button>
+          </div>
+
+        </form>
+        <br>
+</div>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,39 @@
+
+<div class="topnav">
+  <a routerLink="/" aria-label="Example icon-button with money icon">
+    <mat-icon>home</mat-icon>
+    Home
+  </a>
+  <div class="topnav-right">
+
+
+  <a *ngIf="!login.isLoggedIn()"
+  [routerLink]="'/signup'" aria-label="Example icon-button with heart icon">
+    <mat-icon>account_box</mat-icon>
+    Register
+  </a>
+
+
+
+<a *ngIf="!login.isLoggedIn()"
+  [routerLink]="'/login'"
+        
+  aria-label="Example icon-button with heart icon">
+  <mat-icon>account_box</mat-icon>
+   Login
+</a> 
+
+
+<a (click)="logout()"
+*ngIf="login.isLoggedIn()"
+
+
+  aria-label="Example icon-button with heart icon">
+  <mat-icon>account_box</mat-icon>
+   Logout
+</a> 
+
+  </div>
+</div>
+
+

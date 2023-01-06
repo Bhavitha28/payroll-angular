@@ -1,0 +1,19 @@
+
+body {
+    margin: 0;
+    padding: 0;
+   
+  }
+.intro-2 {
+    background: url("C:/Users/BhavithaParvathaneni/angularWorkspace/payroll/pay.jpg")no-repeat center center;
+
+    background-size: cover;
+  min-height: 100vh;
+  overflow: hidden
+  /* opacity: 0.5; */
+
+  }
+  .font{
+    font-size: 60px;
+    font-style: oblique
+  }

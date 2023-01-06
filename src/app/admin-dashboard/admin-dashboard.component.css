@@ -1,0 +1,106 @@
+.navbar{
+    align-items:center;
+  
+    padding: 14px 16px;
+}
+.full-width{
+    width: 100%;
+}
+.place{
+    padding: 30px;
+    padding-left:500px;
+
+}
+.placetwo{
+    padding: 30px;
+    padding-left:250px;
+}
+
+.error{
+    padding-left:500px;
+}
+.card{
+    align-self: center;
+}
+/* .scroll{
+    max-height:300px;
+    overflow-y: auto;
+} */
+.topnav-right {
+    float: right; 
+    padding-right: 20px;
+  } 
+.profileinfo{
+    padding-left: 670px;
+    
+}
+
+.row{
+    padding-bottom:15px;
+
+}
+.form-control{
+   background-color: #fbfbfc;
+   border-radius: 25px;
+}
+/* .intro-2 {
+    background: url("C:/Users/BhavithaParvathaneni/angularWorkspace/payroll/adminimage.png")no-repeat center center;
+
+    background-size: cover;
+  min-height: 100vh;
+  overflow: hidden;
+
+
+  } */
+
+
+.settings{
+    color:  #5bc0de;
+}
+
+.example-1 {
+    position: relative;
+    /* overflow-y: scroll; */
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.square::-webkit-scrollbar-thumb {
+    border-radius: 2 !important;
+}
+
+.thin::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.scrollbar-dusty-grass::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-image: -webkit-linear-gradient(330deg, #9dd9f8 0%, #39a3d0 100%);
+    background-image: linear-gradient(120deg, #42a7d9 0%, #96d3e6 100%);
+}
+.resettext{
+    color: #0d475f;
+    padding-left:60px;
+}
+    .Addtext{
+        color: #0d475f;
+        padding-left:140px;
+    
+    
+}
+
+.intro-2{
+    background: url("C:\Users\BhavithaParvathaneni\Downloads\img2.jpg")no-repeat center center;
+
+    background-size: cover;
+  min-height: 100vh;
+  overflow: hidden
+  /* opacity: 0.5; */
+
+  }
+  .text-left{
+    color:#060606;
+  }

@@ -1,0 +1,151 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-3">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid"
+          alt="Sample image">
+      </div>
+
+      <div class="col-md-6 offset-md-3">
+        <div class="row place">
+          <div class="col-sm-10 bg-success border-primary" style="border-radius: 25px;">
+
+            <div class="card">
+
+              <div class="card-body " style="padding-left:60px">
+                <br>
+                <h1 class="signup"><b>SIGN UP</b></h1>
+
+                <form [formGroup]="registerform" (ngSubmit)="formSubmit()">
+                  <div class="sm-jumbotron">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label for="firstname" class="form-label"> Employee Name </label>
+                        <input type="text" class="form-control" id="EMPLOYEENAME" formControlName="EMPLOYEENAME"
+                          [(ngModel)]="user.employeeName">
+                        <div class="form-text text-danger"
+                          *ngIf="employeeName.errors?.['required'] && (employeeName.touched || employeeName.dirty)">
+                          EmployeeName is Required
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="employeeName.errors?.['minlength'] && (employeeName.touched || employeeName.dirty)">
+                          EmployeeName should be min 3 letters
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="employeeName.errors?.['pattern'] && (employeeName.touched || employeeName.dirty)">
+                          EmployeeName should have only Alphabets
+                        </div>
+
+                       
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label for="employeeId" class="form-label"> Employee Id</label>
+                        <input type="text" class="form-control" id="EMPLOYEEID" formControlName="EMPLOYEEID"
+                          [(ngModel)]="user.employeeId">
+                        <div class="form-text text-danger"
+                          *ngIf="EmployeeId.errors?.['required'] && ( EmployeeId.touched || EmployeeId.dirty)">
+                          EmployeeId required
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="EmployeeId.errors?.['pattern'] &&( EmployeeId.touched || EmployeeId.dirty)">
+                          EmployeeId should start with 'SG' After only digits
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row ">
+                      <div class="col-md-10">
+                        <label for="lastname" class="form-label"> User Name </label>
+                        <input type="text" class="form-control" id="USERNAME" formControlName="USERNAME"
+                          [(ngModel)]="user.userName">
+                        <div class="form-text text-danger"
+                          *ngIf="Userame.errors?.['required'] && ( Userame.touched || Userame.dirty)">
+                          Userame required
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="Userame.errors?.['minlength'] && (Userame.touched || Userame.dirty)">
+                          minimum length of 5
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="Userame.errors?.['pattern'] && (Userame.touched || Userame.dirty)">
+                          username should start with Alphabet
+                        </div>
+                        
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label for="birthdate" class="form-label"> Password</label>
+                        <input type="password" class="form-control" id="PASSWORD" formControlName="PASSWORD"
+                          [(ngModel)]="user.password">
+                        <div class="form-text text-danger"
+                          *ngIf="Password.errors?.['required'] && ( Password.touched || Password.dirty)">
+                          Password Required
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="Password.errors?.['pattern'] && ( Password.touched || Password.dirty)">
+                          Must have 1-Upper, 1-lower,1-special char,1-digit
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="Password.errors?.['minLength'] && ( Password.touched || Password.dirty)">
+                          Min chars 8 only
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="Password.errors?.['maxLength'] && ( Password.touched || Password.dirty)">
+                          Max chars 16 only
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label for="mobile" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="mobile" formControlName="MOBILENUMBER"
+                          [(ngModel)]="user.mobileNumber">
+                        <div class="form-text text-danger"
+                          *ngIf="MobileNo.errors?.['required'] && ( MobileNo.touched || MobileNo.dirty)">
+                          Phone number required
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="MobileNo.errors?.['pattern'] && ( MobileNo.touched || MobileNo.dirty)">
+                          Must have only digits
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="MobileNo.errors?.['minlength'] && ( MobileNo.touched || MobileNo.dirty)">
+                          Min numbers 10 only
+                        </div>
+                        <div class="form-text text-danger"
+                          *ngIf="MobileNo.errors?.['maxlength'] && ( MobileNo.touched || MobileNo.dirty)">
+                          Max numbers 10 only
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="card" style="padding-left:90px;">
+
+                        <div>
+                          <button class="btn btn-success" type="submit"
+                            [disabled]="registerform.invalid">Submit</button>
+                          <button class="btn btn-primary" style="margin-left: 20px" type="reset">Reset</button>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
